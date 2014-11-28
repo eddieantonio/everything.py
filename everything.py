@@ -11,25 +11,31 @@ import sys
 class EverythingModule(types.ModuleType):
 
     def __getattr__(self, name):
-        if name == '__all__':
-            return [key for key in sys.modules
-                    if len(key.split('.')) == 1]
-
         # Gotta put these imports in locals so that we don't recurse
         # infinitely in getattr.
-        import __builtin__
-        Missing = object()
-        builtin = getattr(__builtin__, name, Missing)
-        if builtin is not Missing:
-            return builtin
-
-        # Okay. Let's get down to business!
         import sys
-        from importlib import import_module
-
         try:
-            return import_module(name)
+            import __builtin__
+        except ImportError: # pragma: no cover
+            # For Python 3 support...
+            import builtins as __builtin__
+
+        # Hack! Return all base module names that are currently loaded.
+        if name == '__all__':
+            return [key for key in sys.modules if len(key.split('.')) == 1]
+
+        # Try to return a builtin.
+        try:
+            return getattr(__builtin__, name)
+        except AttributeError:
+            pass
+
+        # Try to import the named module.
+        try:
+            __builtin__.__import__(name)
         except ImportError:
             raise NameError(name)
+        else:
+            return sys.modules[name]
 
 sys.modules['everything'] = EverythingModule('everything', __doc__)
