@@ -19,7 +19,8 @@ after_script:
 # For now, Python 3 and pypy support is experimental.
 matrix:
   allow_failures:
-    - python: "3.3"
-    - python: "3.4"
-    - python: "pypy"
+    - python:
+        - 3.3
+        - 3.4
+        - pypy
 
