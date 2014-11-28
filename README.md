@@ -30,7 +30,7 @@ app = everything.flask.Flask(__name__)
 app.run()
 ```
 
-Have a inexpiable hatred of `import <module>` syntax? `everything` to
+Have a inexplicable hatred of `import <module>` syntax? `everything` to
 the rescue!
 
 ```python
