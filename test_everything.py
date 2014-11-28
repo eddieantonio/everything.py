@@ -43,7 +43,6 @@ def test_imports_other():
     assert pip is everything.pip
     assert pytest is everything.pytest
 
-@pytest.mark.xfail
 def test_import_recursive():
     import everything
 
@@ -65,26 +64,10 @@ def test_from_import():
     assert hasattr(inspect, 'getmodule')
 
 
-@pytest.mark.xfail
-def test_star_import():
-    with pytest.raises(NameError):
-        pickle
-
-    from everything import *
-
-    # Test a module.
-    assert pickle
-    # Test a builtin.
-    assert enumerate
-
-@pytest.mark.xfail
-def test_star_import_recursive():
-
-    from everything import *
-    
-    assert xml.etree.ElementTree
-
 def test_documentation():
     import everything
     assert '\n' in everything.__doc__
 
+# Since `from <mod> import *` are not allowed in functions in Python 3, so...
+# secretely, this line is a test:
+from everything import *
