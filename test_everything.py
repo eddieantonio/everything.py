@@ -10,21 +10,25 @@ import pytest
 
 from types import ModuleType
 
+
 def test_import():
     import everything
 
     assert isinstance(everything, ModuleType)
+
 
 def test_builtins():
     import everything
 
     assert everything.enumerate
 
+
 def test_imports_stdlib():
     import pickle
     import everything
 
     assert pickle is everything.pickle
+
 
 def test_not_a_module_or_buitlin():
     import everything
@@ -36,6 +40,7 @@ def test_not_a_module_or_buitlin():
     with pytest.raises(NameError):
         everything.fhqwhgads
 
+
 def test_imports_other():
     import pip
     import everything
@@ -43,10 +48,12 @@ def test_imports_other():
     assert pip is everything.pip
     assert pytest is everything.pytest
 
+
 def test_import_recursive():
     import everything
 
     assert everything.xml.etree.ElementTree
+
 
 def test_can_still_import():
     import everything
@@ -54,6 +61,7 @@ def test_can_still_import():
     # This is literally the test:
     import pickle
     assert pickle
+
 
 def test_from_import():
     # Again, this is literally the test.

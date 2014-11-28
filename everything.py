@@ -8,6 +8,7 @@ When you want to just import *everything*.
 import types
 import sys
 
+
 class EverythingModule(types.ModuleType):
 
     def __getattr__(self, name):
@@ -16,7 +17,7 @@ class EverythingModule(types.ModuleType):
         import sys
         try:
             import __builtin__
-        except ImportError: # pragma: no cover
+        except ImportError:  # pragma: no cover
             # For Python 3 support...
             import builtins as __builtin__
 
