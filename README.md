@@ -1,6 +1,8 @@
 everything.py
 =============
 
+[![Build Status](https://travis-ci.org/eddieantonio/everything.py.svg)](https://travis-ci.org/eddieantonio/everything.py) [![Coverage Status](https://img.shields.io/coveralls/eddieantonio/everything.py.svg)](https://coveralls.io/r/eddieantonio/everything.py) 
+
 For when you want to import _everything_.
 
 Usage
@@ -28,7 +30,7 @@ app = everything.flask.Flask(__name__)
 app.run()
 ```
 
-Have a inexplible hatred of `import <module>` syntax? `everything` to
+Have a inexpiable hatred of `import <module>` syntax? `everything` to
 the rescue!
 
 ```python
