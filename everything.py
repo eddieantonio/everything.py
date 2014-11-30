@@ -2,7 +2,39 @@
 # coding: utf-8
 
 """
-When you want to just import *everything*.
+When you just want to import *everything*.
+
+-----
+Usage
+-----
+
+As a standard import::
+
+    >>> import everything
+    >>> len(everything.sys.argv) > 0 and 'this works'
+    'this works'
+
+Have an irrationl fear of `import <module>`. Sooth it with
+`everything`::
+
+    >>> from everything import json
+    >>> json.loads('{"this_works": true}')['this_works']
+    True
+
+Use every pre-loaded module willy-nilly::
+
+    >>> from everything import *
+    >>> isinstance(sys.argv, list) and 'this works too'
+    'this works too'
+
+But only for *pre-loaded* modules::
+
+    >>> from everything import *
+    >>> Tkinter.Tcl()
+    Traceback (most recent call last):
+        ...
+    NameError: global name 'Tkinter' is not defined
+
 """
 
 import types

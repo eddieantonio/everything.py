@@ -3,23 +3,17 @@ everything.py
 
 [![Build Status](https://travis-ci.org/eddieantonio/everything.py.svg)](https://travis-ci.org/eddieantonio/everything.py) [![Coverage Status](https://img.shields.io/coveralls/eddieantonio/everything.py.svg)](https://coveralls.io/r/eddieantonio/everything.py) 
 
-For when you want to import _everything_.
+When you just want to import *everything*.
 
 Usage
 -----
 
-```python
-import everything
-```
-
-Then use... everything.
+As a standard import:
 
 ```python
 >>> import everything
->>> everything.os.path.splitext('everything.py')
-('everything', '.py')
->>> everything.token.tok_name[1]
-'NAME'
+>>> len(everything.sys.argv) > 0 and 'this works'
+'this works'
 
 ```
 
@@ -30,11 +24,33 @@ app = everything.flask.Flask(__name__)
 app.run()
 ```
 
-Have a inexplicable hatred of `import <module>` syntax? `everything` to
-the rescue!
+Have an irrationl fear of `import <module>`. Sooth it with `everything`:
 
 ```python
-from everything import this, dis # for rastafarian compatibility
+>>> from everything import json
+>>> json.loads('{"this_works": true}')['this_works']
+True
+
+```
+
+Use every pre-loaded module willy-nilly:
+
+```python
+>>> from everything import *
+>>> isinstance(sys.argv, list) and 'this works too'
+'this works too'
+
+```
+
+But only for *pre-loaded* modules!
+
+```python
+>>> from everything import *
+>>> Tkinter.Tcl()
+Traceback (most recent call last):
+  ...
+NameError: name 'Tkinter' is not defined
+
 ```
 
 License
