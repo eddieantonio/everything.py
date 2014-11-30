@@ -19,7 +19,7 @@ def test_loaded_module():
 @pytest.mark.xfail(reason="Not implemented")
 def test_use_obscure_module():
     import sys
-    assert 'Tkinter' not in sys.modules
+    assert 'decimal' not in sys.modules
 
     # It will be magically loaded on this line:
-    assert Tkinter.Tcl()
+    assert decimal.Decimal('0.01')
