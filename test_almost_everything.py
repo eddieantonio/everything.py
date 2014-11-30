@@ -1,9 +1,14 @@
 #!/usr/bin/env python
+# coding: utf-8
+
 """
-Tests everything about `everything`.
+Tests almost everything about `everything`.
 
 ...but you probably already figured that out.
 
+The only thing missing here are tests for `from everything import *`
+which MUST be in their own module, due to it being a module-level
+syntactic thing and messing with the globals in general. 
 """
 
 import pytest
@@ -42,13 +47,12 @@ def test_not_a_module_or_buitlin():
 
 
 def test_imports_other():
-    import pip
     import everything
 
-    assert pip is everything.pip
     assert pytest is everything.pytest
 
 
+@pytest.mark.xfail(run=False, reason="Not Implemented")
 def test_import_recursive():
     import everything
 
@@ -60,7 +64,7 @@ def test_can_still_import():
 
     # This is literally the test:
     import pickle
-    assert pickle
+    assert pickle.loads
 
 
 def test_from_import():
@@ -72,10 +76,19 @@ def test_from_import():
     assert hasattr(inspect, 'getmodule')
 
 
+@pytest.mark.xfail(reason="Not implemented")
+def test_context_manager():
+    import everything
+    with everything:
+        # Just do something random with a module.
+        # I know for a fact that token.tok_name[1] is 'NAME' so...
+        NAME_TOKEN = token.tok_name[1]
+
+    # Gotta make sure that the local was assigned properly in the
+    # with-statement.
+    assert NAME_TOKEN == 'NAME'
+
+
 def test_documentation():
     import everything
     assert '\n' in everything.__doc__
-
-# Since `from <mod> import *` are not allowed in functions in Python 3, so...
-# secretely, this line is a test:
-from everything import *
