@@ -14,7 +14,7 @@ As a standard import::
     >>> len(everything.sys.argv) > 0 and 'this works'
     'this works'
 
-Have an irrationl fear of `import <module>`. Sooth it with
+Have an irrational fear of `import <module>`. Soothe it with
 `everything`::
 
     >>> from everything import json

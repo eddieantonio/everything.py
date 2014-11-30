@@ -24,7 +24,7 @@ app = everything.flask.Flask(__name__)
 app.run()
 ```
 
-Have an irrationl fear of `import <module>`. Sooth it with `everything`:
+Have an irrational fear of `import <module>`. Soothe it with `everything`:
 
 ```python
 >>> from everything import json
