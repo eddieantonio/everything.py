@@ -40,6 +40,7 @@ But it only works for *pre-loaded* modules::
 import sys
 import types
 
+
 class EverythingModule(types.ModuleType):
     # Once I'm in this module, I can't trust the global namespace, so
     # ALL imports are done as globals in every single method.  :/

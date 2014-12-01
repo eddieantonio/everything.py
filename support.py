@@ -5,6 +5,7 @@ import sys
 
 from collections import Mapping
 
+
 class StopTracing(BaseException):
 
     """
@@ -46,6 +47,7 @@ class WithBlockFinder(ast.NodeVisitor):
 
 
 class EverythingDict(Mapping):
+
     """
     A dictionary of every importable top-level module.
     """
@@ -67,7 +69,9 @@ class EverythingDict(Mapping):
 
 everything_dict = EverythingDict()
 
+
 class EverythingNamespace(dict):
+
     """
     Wrap a namespace. If we get a KeyError in the given namespace, delegate to
     everything.
@@ -79,6 +83,7 @@ class EverythingNamespace(dict):
     def __getitem__(self, name):
         # Try to return the item in the namespace first.
         try:
+            print("but... butt...")
             return self.namespace[name]
         except KeyError:
             pass
@@ -88,10 +93,12 @@ class EverythingNamespace(dict):
     # Delegate the rest of these to the namespace.
     def __setitem__(self, name, value):
         self.namespace[name] = value
+
     def __delitem__(self, name):
         del self.namespace[name]
+
     def __len__(self):
         return len(self.namespace)
+
     def __iter__(self):
         return iter(self.namespace)
-
