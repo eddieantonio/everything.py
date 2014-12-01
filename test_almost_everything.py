@@ -8,7 +8,7 @@ Tests almost everything about `everything`.
 
 The only thing missing here are tests for `from everything import *`
 which MUST be in their own module, due to it being a module-level
-syntactic thing and messing with the globals in general. 
+syntactic thing and messing with the globals in general.
 """
 
 import pytest
@@ -20,12 +20,6 @@ def test_import():
     import everything
 
     assert isinstance(everything, ModuleType)
-
-
-def test_builtins():
-    import everything
-
-    assert everything.enumerate
 
 
 def test_imports_stdlib():
@@ -42,7 +36,7 @@ def test_not_a_module_or_buitlin():
     with pytest.raises(ImportError):
         import fhqwhgads
 
-    with pytest.raises(NameError):
+    with pytest.raises(AttributeError):
         everything.fhqwhgads
 
 
@@ -79,10 +73,13 @@ def test_from_import():
 @pytest.mark.xfail(reason="Not implemented")
 def test_context_manager():
     import everything
+
+    name_id = 1
+
     with everything:
         # Just do something random with a module.
         # I know for a fact that token.tok_name[1] is 'NAME' so...
-        NAME_TOKEN = token.tok_name[1]
+        NAME_TOKEN = token.tok_name[name_id]
 
     # Gotta make sure that the local was assigned properly in the
     # with-statement.
