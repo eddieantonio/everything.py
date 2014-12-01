@@ -37,43 +37,25 @@ But it only works for *pre-loaded* modules::
 
 """
 
-import types
 import sys
-
+import types
 
 class EverythingModule(types.ModuleType):
     # Once I'm in this module, I can't trust the global namespace, so
     # ALL imports are done as globals in every single method.  :/
 
-    def __getitem__(self, name):
-        # Pretend we're a dictionary.
-        return getattr(self, name)
-
     def __getattr__(self, name):
         import sys
-        try:
-            # The name of the Python 3 module:
-            import builtins
-        except ImportError:  # pragma: no cover
-            import __builtin__ as builtins
-
         # Hack! Return all base module names that are currently loaded.
         if name == '__all__':
             return [key for key in sys.modules if len(key.split('.')) == 1]
 
-        # Try to return a builtin.
+        from support import everything_dict
+        # Try to get it from the EVERYTHING dict.
         try:
-            return getattr(builtins, name)
-        except AttributeError:
-            pass
-
-        # Try to import the named module.
-        try:
-            builtins.__import__(name)
-        except ImportError:
-            raise NameError(name)
-        else:
-            return sys.modules[name]
+            return everything_dict[name]
+        except KeyError:
+            raise AttributeError(name)
 
     # Let's be a super sweet context managers.
     def __enter__(self):
@@ -137,8 +119,10 @@ class EverythingModule(types.ModuleType):
 
         block_code = compile(block_ast, info.filename, 'exec')
 
-        # Exec it in its own locals, but inject self into globals.
-        exec block_code in info.locals, self
+        from support import EverythingNamespace
+        augmented_locals = EverythingNamespace(info.locals)
+        # Exec it in its own globals, but inject `everything` into locals.
+        exec(block_code, info.globals, augmented_locals)
 
         # Ignore the StopTracing error.
         return True
