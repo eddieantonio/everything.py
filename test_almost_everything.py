@@ -76,7 +76,6 @@ def test_from_import():
     assert hasattr(inspect, 'getmodule')
 
 
-@pytest.mark.xfail(reason="Not implemented")
 def test_context_manager():
     import everything
     with everything:
