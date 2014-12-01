@@ -28,8 +28,8 @@ Have an irrational fear of `import <module>`. Soothe it with `everything`:
 
 ```python
 >>> from everything import json
->>> json.loads('{"this_works": true}')['this_works']
-True
+>>> json.dumps({'this_works': True})
+'{"this_works": true}'
 
 ```
 
@@ -42,14 +42,14 @@ Use every pre-loaded module willy-nilly:
 
 ```
 
-But only for *pre-loaded* modules!
+But it only works for *pre-loaded* modules!
 
 ```python
 >>> from everything import *
->>> Tkinter.Tcl()
+>>> decimal.Decimal('0.01')
 Traceback (most recent call last):
   ...
-NameError: name 'Tkinter' is not defined
+NameError: name 'decimal' is not defined
 
 ```
 

@@ -18,8 +18,8 @@ Have an irrational fear of `import <module>`. Soothe it with
 `everything`::
 
     >>> from everything import json
-    >>> json.loads('{"this_works": true}')['this_works']
-    True
+    >>> json.dumps({'this_works': True})
+    '{"this_works": true}'
 
 Use every pre-loaded module willy-nilly::
 
@@ -27,13 +27,13 @@ Use every pre-loaded module willy-nilly::
     >>> isinstance(sys.argv, list) and 'this works too'
     'this works too'
 
-But only for *pre-loaded* modules::
+But it only works for *pre-loaded* modules::
 
     >>> from everything import *
-    >>> Tkinter.Tcl()
+    >>> decimal.Decimal('0.01')
     Traceback (most recent call last):
         ...
-    NameError: global name 'Tkinter' is not defined
+    NameError: name 'decimal' is not defined
 
 """
 
